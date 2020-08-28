@@ -1,0 +1,26 @@
+package com.kyc.customer.model;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Setter
+@Getter
+@AllArgsConstructor
+@NoArgsConstructor
+public class Customer {
+
+    private Integer id;
+    private String firstName;
+    private String secondName;
+    private String lastName;
+    private String secondLastName;
+    private String age;
+    private String rfc;
+    private String homePhone;
+    private String cellPhone;
+    private String email;
+    private CustomerAddress address;
+
+}

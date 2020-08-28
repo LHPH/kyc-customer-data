@@ -1,0 +1,30 @@
+schema{
+ query:Query
+}
+
+type Query{
+    customerDataByRfc(rfc: String): Customer,
+    customerDataById(id: ID): Customer,
+    customerDataByFullName(first_name: String, second_name: String, last_name: String, second_last_name: String): Customer
+}
+
+type Customer{
+    id: ID,
+    first_name: String,
+    second_name: String,
+    last_name: String,
+    second_last_name: String,
+    rfc: String,
+    age: String,
+    home_phone: String,
+    cell_phone: String,
+    email: String,
+    address: Address
+}
+
+type Address{
+    street: String,
+    street_number: String,
+    neighbourhood: String,
+    id_state: Int
+}
