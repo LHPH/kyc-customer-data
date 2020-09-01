@@ -1,0 +1,43 @@
+schema{
+ query: Query
+
+}
+
+input Name{
+    firstName: String
+    secondName: String
+    lastName: String
+    secondLastName: String
+}
+
+input CustomerFilter{
+    id: ID
+    rfc: String
+    name: Name
+}
+
+type Query{
+    customers: [Customer]
+    customer(filter: CustomerFilter): Customer
+}
+
+type Customer{
+    id: ID
+    firstName: String
+    secondName: String
+    lastName: String
+    secondLastName: String
+    rfc: String
+    age: String
+    homePhone: String
+    cellPhone: String
+    email: String
+    address: Address
+}
+
+type Address{
+    street: String,
+    streetNumber: String,
+    neighbourhood: String,
+    idState: Int
+}
