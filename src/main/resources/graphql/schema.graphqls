@@ -1,26 +1,25 @@
 schema{
  query: Query
-
+ mutation: Mutation
 }
 
-input Name{
-    firstName: String
-    secondName: String
-    lastName: String
-    secondLastName: String
-}
-
-input CustomerFilter{
-    id: ID
-    rfc: String
-    name: Name
-}
-
+"""
+General Types
+"""
 type Query{
     customers: [Customer]
     customer(filter: CustomerFilter): Customer
 }
 
+type Mutation{
+    addCustomer(customer: CustomerInput): ID
+    updateCustomer(id: ID!,customer: CustomerInput): Customer
+    deleteCustomer(id:ID!): Boolean
+}
+
+"""
+Types
+"""
 type Customer{
     id: ID
     firstName: String
@@ -36,8 +35,44 @@ type Customer{
 }
 
 type Address{
-    street: String,
-    streetNumber: String,
-    neighbourhood: String,
+    street: String
+    streetNumber: String
+    neighbourhood: String
     idState: Int
+}
+
+"""
+Input Types
+"""
+input Name{
+    firstName: String
+    secondName: String
+    lastName: String
+    secondLastName: String
+}
+
+input CustomerFilter{
+    id: ID
+    rfc: String
+    name: Name
+}
+
+input CustomerInput{
+    firstName: String!
+    secondName: String
+    lastName: String!
+    secondLastName: String!
+    rfc: String!
+    age: String!
+    homePhone: String
+    cellPhone: String!
+    email: String!
+    address: CustomerAddressInput
+}
+
+input CustomerAddressInput{
+    street: String!
+    streetNumber: String!
+    neighbourhood: String!
+    idState: Int!
 }

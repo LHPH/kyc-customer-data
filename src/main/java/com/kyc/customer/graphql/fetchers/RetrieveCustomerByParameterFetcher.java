@@ -1,6 +1,7 @@
 package com.kyc.customer.graphql.fetchers;
 
-import com.kyc.customer.controllers.CustomerController;
+import static com.kyc.customer.util.Functions.notNull;
+
 import com.kyc.customer.model.Customer;
 import com.kyc.customer.repositories.jdbc.CustomerRepository;
 import graphql.schema.DataFetcher;
@@ -9,14 +10,12 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import java.util.HashMap;
 import java.util.Map;
 
 @Component
 public class RetrieveCustomerByParameterFetcher implements DataFetcher<Customer> {
 
-    public static final Logger LOGGER = LogManager.getLogger(CustomerController.class);
+    public static final Logger LOGGER = LogManager.getLogger(RetrieveCustomerByParameterFetcher.class);
 
     @Autowired
     private CustomerRepository customerRepository;
@@ -27,21 +26,21 @@ public class RetrieveCustomerByParameterFetcher implements DataFetcher<Customer>
         Map<String,Object> map = dataFetchingEnvironment.getArgument("filter");
 
         if(validMapAndElement(map,"id")){
-            Integer id = Integer.valueOf(String.valueOf(map.get("id")));
+            Integer id = Integer.valueOf(notNull(map.get("id")));
             return customerRepository.getCustomerById(id);
         }
 
         if(validMapAndElement(map,"rfc")){
-            String rfc = String.valueOf(map.get("rfc"));
+            String rfc = notNull(map.get("rfc"));
             return customerRepository.getCustomerByRfc(rfc);
         }
 
         if(validMapAndElement(map,"name")){
             Map<String,Object> nameMap =(Map<String, Object>) map.get("name");
-            String name = nameMap.get("firstName").toString();
-            String secondName = nameMap.get("secondName").toString();
-            String lastName = nameMap.get("lastName").toString();
-            String secondLastName = nameMap.get("secondLastName").toString();
+            String name = notNull(nameMap.get("firstName"));
+            String secondName = notNull(nameMap.get("secondName"));
+            String lastName = notNull(nameMap.get("lastName"));
+            String secondLastName = notNull(nameMap.get("secondLastName"));
 
             Customer aux = new Customer();
             aux.setFirstName(name);

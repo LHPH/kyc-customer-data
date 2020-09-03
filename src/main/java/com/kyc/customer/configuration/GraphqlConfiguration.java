@@ -2,8 +2,7 @@ package com.kyc.customer.configuration;
 
 import com.google.common.base.Charsets;
 import com.google.common.io.Resources;
-import com.kyc.customer.graphql.fetchers.RetrieveAllCustomerFetcher;
-import com.kyc.customer.graphql.fetchers.RetrieveCustomerByParameterFetcher;
+import com.kyc.customer.graphql.fetchers.*;
 import graphql.GraphQL;
 import graphql.schema.GraphQLSchema;
 import graphql.schema.idl.RuntimeWiring;
@@ -25,6 +24,15 @@ public class GraphqlConfiguration {
 
     @Autowired
     private RetrieveCustomerByParameterFetcher retrieveCustomerByParameterFetcher;
+
+    @Autowired
+    private AddCustomerFetcher addCustomerFetcher;
+
+    @Autowired
+    private UpdateCustomerFetcher updateCustomerFetcher;
+
+    @Autowired
+    private DeleteCustomerFetcher deleteCustomerFetcher;
 
     @Bean
     public GraphQL graphql() throws IOException {
@@ -52,6 +60,12 @@ public class GraphqlConfiguration {
                         typeWiring -> typeWiring
                                 .dataFetcher("customers",retrieveAllCustomerFetcher)
                                 .dataFetcher("customer",retrieveCustomerByParameterFetcher)
+                                )
+                .type("Mutation",
+                        typeWiring -> typeWiring
+                                .dataFetcher("addCustomer",addCustomerFetcher)
+                                .dataFetcher("updateCustomer",updateCustomerFetcher)
+                                .dataFetcher("deleteCustomer",deleteCustomerFetcher)
                                 )
                 .build();
     }

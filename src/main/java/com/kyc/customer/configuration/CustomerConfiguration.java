@@ -4,6 +4,7 @@ import org.springframework.beans.factory.config.PropertiesFactoryBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.web.filter.CommonsRequestLoggingFilter;
 
 @Configuration
 public class CustomerConfiguration {
@@ -16,6 +17,21 @@ public class CustomerConfiguration {
         props.setLocation(new ClassPathResource("sql/queries.xml"));
         return props;
 
+    }
+
+    @Bean
+    public CommonsRequestLoggingFilter loggingFilter(){
+
+        CommonsRequestLoggingFilter filter = new CommonsRequestLoggingFilter();
+        filter.setBeforeMessagePrefix("Before Request: ");
+        filter.setIncludeHeaders(true);
+        filter.setIncludePayload(true);
+        filter.setIncludeQueryString(true);
+        filter.setAfterMessagePrefix("After Request: ");
+        filter.setIncludeClientInfo(true);
+        filter.setMaxPayloadLength(1000);
+
+        return filter;
     }
 
 }

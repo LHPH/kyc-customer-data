@@ -5,7 +5,10 @@ spring:
     active: dev
   jackson:
     default-property-inclusion: NON_NULL
-    
+
+graphql:
+  url: /customer-data
+
 management:
   endpoints:
     web:
@@ -27,3 +30,4 @@ logging:
     org.hibernate.SQL: DEBUG
     org.hibernate.type.descriptor.sql: TRACE
     org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping: TRACE
+    org.springframework.web.filter.CommonsRequestLoggingFilter: DEBUG
