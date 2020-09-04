@@ -4,10 +4,11 @@ import com.kyc.customer.model.Customer;
 import com.kyc.customer.model.CustomerAddress;
 import org.springframework.stereotype.Component;
 
-import static com.kyc.customer.util.Functions.toIntegerOrNull;
-import static com.kyc.customer.util.Functions.notNullButIfRequired;
-
 import java.util.Map;
+
+import static com.kyc.customer.util.Functions.notNullButIfRequired;
+import static com.kyc.customer.util.Functions.toIntegerOrNull;
+import static com.kyc.customer.util.Functions.toBooleanOrNull;
 
 @Component
 public class CustomerHelper {
@@ -26,7 +27,8 @@ public class CustomerHelper {
         customer.setHomePhone(notNullButIfRequired(map.get("homePhone"),false));
         customer.setCellPhone(notNullButIfRequired(map.get("cellPhone"),true));
         customer.setEmail(notNullButIfRequired(map.get("email"),true));
-        
+        customer.setActive(toBooleanOrNull(map.get("active")));
+
         Map<String,Object > mapAddress = (Map<String, Object>) map.get("address");
         if(mapAddress!=null){
 

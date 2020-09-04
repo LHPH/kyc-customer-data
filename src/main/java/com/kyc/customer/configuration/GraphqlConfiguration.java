@@ -2,8 +2,14 @@ package com.kyc.customer.configuration;
 
 import com.google.common.base.Charsets;
 import com.google.common.io.Resources;
-import com.kyc.customer.graphql.fetchers.*;
+import com.kyc.customer.exceptions.ExceptionHandler;
+import com.kyc.customer.graphql.fetchers.AddCustomerFetcher;
+import com.kyc.customer.graphql.fetchers.DeleteCustomerFetcher;
+import com.kyc.customer.graphql.fetchers.RetrieveAllCustomerFetcher;
+import com.kyc.customer.graphql.fetchers.RetrieveCustomerByParameterFetcher;
+import com.kyc.customer.graphql.fetchers.UpdateCustomerFetcher;
 import graphql.GraphQL;
+import graphql.execution.AsyncExecutionStrategy;
 import graphql.schema.GraphQLSchema;
 import graphql.schema.idl.RuntimeWiring;
 import graphql.schema.idl.SchemaGenerator;
@@ -40,7 +46,9 @@ public class GraphqlConfiguration {
         URL url = Resources.getResource("graphql/schema.graphqls");
         String sdl = Resources.toString(url, Charsets.UTF_8);
         GraphQLSchema graphQLSchema = buildSchema(sdl);
-        GraphQL graphQL = GraphQL.newGraphQL(graphQLSchema).build();
+        GraphQL graphQL = GraphQL.newGraphQL(graphQLSchema)
+                .queryExecutionStrategy(new AsyncExecutionStrategy(new ExceptionHandler()))
+                .mutationExecutionStrategy(new AsyncExecutionStrategy(new ExceptionHandler())).build();
         return graphQL;
     }
 

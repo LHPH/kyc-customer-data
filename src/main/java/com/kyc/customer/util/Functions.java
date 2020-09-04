@@ -26,4 +26,11 @@ public class Functions {
         return Integer.valueOf(number.toString());
     }
 
+    public static Boolean toBooleanOrNull(Object value){
+        if(value == null){
+            return null;
+        }
+        return Boolean.valueOf(value.toString());
+    }
+
 }

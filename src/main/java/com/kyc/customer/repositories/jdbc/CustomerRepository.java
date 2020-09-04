@@ -9,13 +9,14 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.lang.invoke.MethodHandles;
 import java.util.List;
 import java.util.Properties;
 
 @Repository
 public class CustomerRepository {
 
-    public static final Logger LOGGER = LogManager.getLogger(CustomerRepository.class);
+    public static final Logger LOGGER = LogManager.getLogger(MethodHandles.lookup().lookupClass());
 
     @Autowired
     private JdbcTemplate jdbcTemplate;

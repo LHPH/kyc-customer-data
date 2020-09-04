@@ -1,7 +1,5 @@
 package com.kyc.customer.graphql.fetchers;
 
-import static com.kyc.customer.util.Functions.notNull;
-
 import com.kyc.customer.model.Customer;
 import com.kyc.customer.repositories.jdbc.CustomerRepository;
 import graphql.schema.DataFetcher;
@@ -10,12 +8,16 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.lang.invoke.MethodHandles;
 import java.util.Map;
+
+import static com.kyc.customer.util.Functions.notNull;
 
 @Component
 public class RetrieveCustomerByParameterFetcher implements DataFetcher<Customer> {
 
-    public static final Logger LOGGER = LogManager.getLogger(RetrieveCustomerByParameterFetcher.class);
+    public static final Logger LOGGER = LogManager.getLogger(MethodHandles.lookup().lookupClass());
 
     @Autowired
     private CustomerRepository customerRepository;

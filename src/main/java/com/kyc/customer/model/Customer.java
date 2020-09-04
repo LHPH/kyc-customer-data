@@ -21,6 +21,7 @@ public class Customer {
     private String homePhone;
     private String cellPhone;
     private String email;
+    private Boolean active;
     private CustomerAddress address;
 
 }
