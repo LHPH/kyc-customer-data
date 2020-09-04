@@ -22,6 +22,7 @@ public class CustomerMapper implements RowMapper<Customer> {
         customer.setAge(resultSet.getString("AGE"));
         customer.setCellPhone(resultSet.getString("CELL_PHONE"));
         customer.setHomePhone(resultSet.getString("HOME_PHONE"));
+        customer.setActive(resultSet.getBoolean("ACTIVE"));
         customer.setEmail(resultSet.getString("EMAIL"));
 
         CustomerAddress address = new CustomerAddress();

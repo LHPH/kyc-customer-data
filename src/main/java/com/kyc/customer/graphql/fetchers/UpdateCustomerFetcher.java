@@ -48,6 +48,7 @@ public class UpdateCustomerFetcher implements DataFetcher<Customer> {
             return customerRepository.getCustomerById(customer.getId());
         }
         catch(Exception e){
+            LOGGER.error("Ocurrio un error ",e);
             Map<String,Object> map = new HashMap<>();
             map.put("UPDATE","No se pudo actualizar la info del cliente");
             throw new CustomerException(MessageErrorEnum.ERROR_DATABASE_MODIFIED.getMessage(),map);

@@ -31,6 +31,7 @@ type Customer{
     homePhone: String
     cellPhone: String
     email: String
+    active: Boolean
     address: Address
 }
 

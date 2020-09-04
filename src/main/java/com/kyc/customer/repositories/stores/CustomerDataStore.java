@@ -5,14 +5,17 @@ import com.kyc.customer.model.Customer;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcCall;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.PostConstruct;
 import java.lang.invoke.MethodHandles;
+import java.util.Properties;
 
 @Repository
 public class CustomerDataStore {
@@ -22,7 +25,14 @@ public class CustomerDataStore {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
+    @Autowired
+    private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+
     private SimpleJdbcCall simpleJdbcCall;
+
+    @Autowired
+    @Qualifier("queriesProps")
+    private Properties queriesProps;
 
     @PostConstruct
     public void init(){
@@ -41,7 +51,10 @@ public class CustomerDataStore {
 
         LOGGER.info("Ejecutando SP con Operacion {}",OperationEnum.UPDATE);
         SqlParameterSource params = getParametersUp(customer,OperationEnum.UPDATE);
-        simpleJdbcCall.execute(params);
+
+        String sql = queriesProps.get("SP_PROCESS_CUSTOMER").toString();
+        namedParameterJdbcTemplate.update(sql,params);
+        //simpleJdbcCall.execute(params);
         LOGGER.info("Se termino de ejecutar SP con Operacion {}",OperationEnum.UPDATE);
     }
 
@@ -66,7 +79,7 @@ public class CustomerDataStore {
 
         SqlParameterSource in = new MapSqlParameterSource()
                 .addValue("OPERATION",operation.getOperation())
-                .addValue("P_CUSTOMER",customer.getId())
+                .addValue("P_ID_CUSTOMER",customer.getId())
                 .addValue("P_FIRST_NAME",customer.getFirstName())
                 .addValue("P_SECOND_NAME",customer.getSecondName())
                 .addValue("P_LAST_NAME",customer.getLastName())

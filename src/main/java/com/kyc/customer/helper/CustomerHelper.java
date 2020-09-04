@@ -2,8 +2,11 @@ package com.kyc.customer.helper;
 
 import com.kyc.customer.model.Customer;
 import com.kyc.customer.model.CustomerAddress;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Component;
 
+import java.lang.invoke.MethodHandles;
 import java.util.Map;
 
 import static com.kyc.customer.util.Functions.notNullButIfRequired;
@@ -12,6 +15,8 @@ import static com.kyc.customer.util.Functions.toBooleanOrNull;
 
 @Component
 public class CustomerHelper {
+
+    public static final Logger LOGGER = LogManager.getLogger(MethodHandles.lookup().lookupClass());
 
     public Customer mapToModel(Map<String,Object> map){
 
@@ -32,14 +37,15 @@ public class CustomerHelper {
         Map<String,Object > mapAddress = (Map<String, Object>) map.get("address");
         if(mapAddress!=null){
 
-            address.setStreet(notNullButIfRequired(map.get("street"),true));
-            address.setStreetNumber(notNullButIfRequired(map.get("streetNumber"),true));
-            address.setNeighbourhood(notNullButIfRequired(map.get("neighbourhood"),true));
-            address.setIdState(toIntegerOrNull(map.get("idState")));
+            address.setStreet(notNullButIfRequired(mapAddress.get("street"),true));
+            address.setStreetNumber(notNullButIfRequired(mapAddress.get("streetNumber"),true));
+            address.setNeighbourhood(notNullButIfRequired(mapAddress.get("neighbourhood"),true));
+            address.setIdState(toIntegerOrNull(mapAddress.get("idState")));
 
-            customer.setAddress(address);
         }
+        customer.setAddress(address);
 
+        LOGGER.info("Customer: {}",customer);
         return customer;
 
     }
