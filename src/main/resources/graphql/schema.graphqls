@@ -59,22 +59,22 @@ input CustomerFilter{
 }
 
 input CustomerInput{
-    firstName: String!
+    firstName: String
     secondName: String
-    lastName: String!
-    secondLastName: String!
-    rfc: String!
-    age: String!
+    lastName: String
+    secondLastName: String
+    rfc: String
+    age: String
     homePhone: String
-    cellPhone: String!
-    email: String!,
+    cellPhone: String
+    email: String,
     active: Boolean,
     address: CustomerAddressInput
 }
 
 input CustomerAddressInput{
-    street: String!
-    streetNumber: String!
-    neighbourhood: String!
-    idState: Int!
+    street: String
+    streetNumber: String
+    neighbourhood: String
+    idState: Int
 }

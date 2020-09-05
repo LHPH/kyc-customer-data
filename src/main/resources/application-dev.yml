@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:6000/landings
+    url: jdbc:postgresql://localhost:6000/landings?escapeSyntaxCallMode=callIfNoReturn
     username: mkt
     password: mkt
     hikari:

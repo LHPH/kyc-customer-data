@@ -7,7 +7,7 @@ public class Functions {
         if (obj==null){
             return "";
         }
-        return String.valueOf(obj);
+        return String.valueOf(obj).toUpperCase();
     }
 
     public static String notNullButIfRequired(Object obj, boolean required){
@@ -15,7 +15,7 @@ public class Functions {
         if(obj == null && !required){
             return "";
         }
-        return (obj == null) ?null : String.valueOf(obj);
+        return (obj == null) ?null : String.valueOf(obj).toUpperCase();
     }
 
     public static Integer toIntegerOrNull(Object number){

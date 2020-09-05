@@ -3,6 +3,7 @@ package com.kyc.customer.graphql.fetchers;
 import com.kyc.customer.enums.MessageErrorEnum;
 import com.kyc.customer.exceptions.CustomerException;
 import com.kyc.customer.model.Customer;
+import com.kyc.customer.model.CustomerAddress;
 import com.kyc.customer.repositories.stores.CustomerDataStore;
 import graphql.schema.DataFetcher;
 import graphql.schema.DataFetchingEnvironment;
@@ -32,12 +33,15 @@ public class DeleteCustomerFetcher implements DataFetcher<Boolean> {
 
         try{
             Customer customer = new Customer();
+            CustomerAddress address = new CustomerAddress();
+            customer.setAddress(address);
             customer.setId(id);
             customerDataStore.deleteCustomer(customer);
 
             return true;
         }
         catch(Exception e){
+            LOGGER.error("Ocurrio un error {}",e);
             Map<String,Object> map = new HashMap<>();
             map.put("DELETE","No se pudo eliminar al cliente");
             throw new CustomerException(MessageErrorEnum.ERROR_DATABASE_MODIFIED.getMessage(),map);

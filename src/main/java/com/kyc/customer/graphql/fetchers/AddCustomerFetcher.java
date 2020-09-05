@@ -39,6 +39,8 @@ public class AddCustomerFetcher implements DataFetcher<Integer> {
            return customerDataStore.getIdCustomer(customer);
        }
        catch(Exception e){
+
+           LOGGER.error("Ocurrio un error {}",e);
            Map<String,Object> map = new HashMap<>();
            map.put("ADD","No se pudo registrar la info del cliente");
            throw new CustomerException(MessageErrorEnum.ERROR_DATABASE_MODIFIED.getMessage(),map);
