@@ -2,6 +2,8 @@ package com.kyc.customer.repositories.stores;
 
 import com.kyc.customer.enums.OperationEnum;
 import com.kyc.customer.model.Customer;
+import com.oracle.jrockit.jfr.ValueDefinition;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcCall;
 import org.springframework.stereotype.Repository;
+import org.springframework.beans.factory.annotation.Value;
 
 import javax.annotation.PostConstruct;
 import java.lang.invoke.MethodHandles;
@@ -30,6 +33,9 @@ public class CustomerDataStore {
 
     private SimpleJdbcCall simpleJdbcCall;
 
+    @Value("${spring.datasource.url}")
+    private String url;
+
     @Autowired
     @Qualifier("queriesProps")
     private Properties queriesProps;
@@ -42,6 +48,7 @@ public class CustomerDataStore {
     public void saveCustomer(Customer customer){
 
         LOGGER.info("Ejecutando SP con Operacion {}",OperationEnum.INSERT);
+        LOGGER.info("URL {}",url);
         SqlParameterSource params = getParametersUp(customer,OperationEnum.INSERT);
         simpleJdbcCall.execute(params);
         LOGGER.info("Se termino de ejecutar SP con Operacion {}",OperationEnum.INSERT);
