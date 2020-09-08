@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: ${JDBC_DATABASE_URL}"&escapeSyntaxCallMode=callIfNoReturn"
+    url: "${JDBC_DATABASE_URL}&escapeSyntaxCallMode=callIfNoReturn"
     username: ${JDBC_DATABASE_USERNAME}
     password: ${JDBC_DATABASE_PASSWORD}
     hikari:
