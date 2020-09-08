@@ -2,7 +2,6 @@ package com.kyc.customer.repositories.stores;
 
 import com.kyc.customer.enums.OperationEnum;
 import com.kyc.customer.model.Customer;
-import com.oracle.jrockit.jfr.ValueDefinition;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
