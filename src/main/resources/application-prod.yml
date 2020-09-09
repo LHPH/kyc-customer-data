@@ -1,5 +1,6 @@
 spring:
   datasource:
+    #Heroku override the property url through OS variable, we override the property in Procfile
     #url: ${JDBC_DATABASE_URL}&escapeSyntaxCallMode=callIfNoReturn
     username: ${JDBC_DATABASE_USERNAME}
     password: ${JDBC_DATABASE_PASSWORD}

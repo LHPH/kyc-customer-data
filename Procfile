@@ -1,1 +1,1 @@
-web: java $JAVA_OPTS -Dspring.profiles.active=prod -jar target/kyc-customer-data-1.0.0.jar
+web: java $JAVA_OPTS -Dspring.profiles.active=prod -Dspring.datasource.url=jdbc:postgresql://ec2-34-197-212-240.compute-1.amazonaws.com:5432/ddhhfr7emaraf5?escapeSyntaxCallMode=callIfNoReturn -jar target/kyc-customer-data-1.0.0.jar

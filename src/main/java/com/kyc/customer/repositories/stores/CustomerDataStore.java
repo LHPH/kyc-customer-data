@@ -32,9 +32,6 @@ public class CustomerDataStore {
 
     private SimpleJdbcCall simpleJdbcCall;
 
-    @Value("${spring.datasource.url}")
-    private String url;
-
     @Autowired
     @Qualifier("queriesProps")
     private Properties queriesProps;
@@ -47,7 +44,6 @@ public class CustomerDataStore {
     public void saveCustomer(Customer customer){
 
         LOGGER.info("Ejecutando SP con Operacion {}",OperationEnum.INSERT);
-        LOGGER.info("URL {}",url);
         SqlParameterSource params = getParametersUp(customer,OperationEnum.INSERT);
         simpleJdbcCall.execute(params);
         LOGGER.info("Se termino de ejecutar SP con Operacion {}",OperationEnum.INSERT);
